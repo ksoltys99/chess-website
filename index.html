@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Position Editor</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="bg">
+    <div class="nav-bar">
+        <button class="nav-btn" onclick="redirect('index.html')"> Play </button>
+        <button class="nav-btn" onclick="redirect('position-editor.html')"> Position Editor </button>
+        <button class="nav-btn" onclick="redirect('puzzle.html')" disabled="disabled" title="Coming soon! :)"> Puzzle </button>
+    </div>
+    <div class="main-box">
+        <div class="chessboard-container">
+            <table class="chessboard">
+                <tr>
+                    <td class="field" id="00">
+                        <span class="row-white">8</span><span class="col-black invisible">a</span>
+                    </td>
+                    <td class="field" id="01"><span class="col-black invisible">b</span></td>
+                    <td class="field" id="02"><span class="col-black invisible">c</span></td>
+                    <td class="field" id="03"><span class="col-black invisible">d</span></td>
+                    <td class="field" id="04"><span class="col-black invisible">e</span></td>
+                    <td class="field" id="05"><span class="col-black invisible">f</span></td>
+                    <td class="field" id="06"><span class="col-black invisible">g</span></td>
+                    <td class="field" id="07">
+                        <span class="col-black invisible">h</span><span class="row-black invisible">8</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field" id="10"><span class="row-white">7</span></td>
+                    <td class="field" id="11"></td>
+                    <td class="field" id="12"></td>
+                    <td class="field" id="13"></td>
+                    <td class="field" id="14"></td>
+                    <td class="field" id="15"></td>
+                    <td class="field" id="16"></td>
+                    <td class="field" id="17"><span class="row-black invisible">7</span></td>
+                </tr>
+                <tr>
+                    <td class="field" id="20"><span class="row-white">6</span></td>
+                    <td class="field" id="21"></td>
+                    <td class="field" id="22"></td>
+                    <td class="field" id="23"></td>
+                    <td class="field" id="24"></td>
+                    <td class="field" id="25"></td>
+                    <td class="field" id="26"></td>
+                    <td class="field" id="27"><span class="row-black invisible">6</span></td>
+                </tr>
+                <tr>
+                    <td class="field" id="30"><span class="row-white">5</span></td>
+                    <td class="field" id="31"></td>
+                    <td class="field" id="32"></td>
+                    <td class="field" id="33"></td>
+                    <td class="field" id="34"></td>
+                    <td class="field" id="35"></td>
+                    <td class="field" id="36"></td>
+                    <td class="field" id="37"><span class="row-black invisible">5</span></td>
+                </tr>
+                <tr>
+                    <td class="field" id="40"><span class="row-white">4</span></td>
+                    <td class="field" id="41"></td>
+                    <td class="field" id="42"></td>
+                    <td class="field" id="43"></td>
+                    <td class="field" id="44"></td>
+                    <td class="field" id="45"></td>
+                    <td class="field" id="46"></td>
+                    <td class="field" id="47"><span class="row-black invisible">4</span></td>
+                </tr>
+                <tr>
+                    <td class="field" id="50"><span class="row-white">3</span></td>
+                    <td class="field" id="51"></td>
+                    <td class="field" id="52"></td>
+                    <td class="field" id="53"></td>
+                    <td class="field" id="54"></td>
+                    <td class="field" id="55"></td>
+                    <td class="field" id="56"></td>
+                    <td class="field" id="57"><span class="row-black invisible">3</span></td>
+                </tr>
+                <tr>
+                    <td class="field" id="60"><span class="row-white">2</span></td>
+                    <td class="field" id="61"></td>
+                    <td class="field" id="62"></td>
+                    <td class="field" id="63"></td>
+                    <td class="field" id="64"></td>
+                    <td class="field" id="65"></td>
+                    <td class="field" id="66"></td>
+                    <td class="field" id="67"><span class="row-black invisible">2</span></td>
+                </tr>
+                <tr>
+                    <td class="field" id="70">
+                        <span class="row-white">1</span><span class="col-white">a</span>
+                    </td>
+                    <td class="field" id="71"><span class="col-white">b</span></td>
+                    <td class="field" id="72"><span class="col-white">c</span></td>
+                    <td class="field" id="73"><span class="col-white">d</span></td>
+                    <td class="field" id="74"><span class="col-white">e</span></td>
+                    <td class="field" id="75"><span class="col-white">f</span></td>
+                    <td class="field" id="76"><span class="col-white">g</span></td>
+                    <td class="field" id="77">
+                        <span class="col-white">h</span>
+                        <span class="row-black invisible">1</span>
+                    </td>
+                </tr>
+            </table>
+            <dialog class="modal" id="modal">
+                <h3 class="game-result-info"></h3>
+                <button class="close-btn">got it</button>
+            </dialog>
+            <dialog class="modal" id="invalid-position-modal">
+                <h3> Invalid position </h3>
+                <button class="close-btn" id="invalid-position-close-btn">got it</button>
+            </dialog>
+        </div>
+        <div class="moves-notation-board">
+            <div class="moves-counter board-col">
+                    
+            </div>
+            <div class="white-moves board-col">
+            
+            </div>
+            <div class="black-moves board-col">
+            
+            </div>
+        </div>
+        <div class="options-container">
+            <button class="flip-board-btn" onclick = "flipBoard()" title="Flip board"><img src="./images/reverse-icon.png"></button>
+            <p> Promote to:
+                <select id="promotion-select">
+                    <option value="queen">Queen</option>
+                    <option value="rook">Rook</option>
+                    <option value="bishop">Bishop</option>
+                    <option value="knight">Knight</option>
+                </select>
+            </p>
+            <p class="hide-during-game"> Play as:
+                <select id="color-select">
+                    <option value="white">White</option>
+                    <option value="black">Black</option>
+                </select>
+            </p>
+            <p class="hide-during-game"> Play with:
+                <select id="opponent-select">
+                    <option value="computer">Computer</option>
+                    <option value="self">Self</option>
+                </select>
+            </p>
+            <button class="start-game-btn hide-during-game" onclick = "newGame()" title = "Start game">Start</button>
+            <button class="resign-btn hidden" onclick = "handleSurrender()" title = "Resign game" disabled="disabled">Resign</button>
+        </div>
+    </div>
+    </div>
+    <script src="chess.js"></script>
+    <script src="board-events.js"></script>
+    <script src="site-functionality.js"></script>
+    <script src="chess-engine.js"></script>
+</body>
+</html>
