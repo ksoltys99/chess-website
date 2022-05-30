@@ -4,28 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Position Editor</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>KS Chess</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div id="bg">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="redirect('index.html')"> Play </button>
-        <button class="nav-btn" onclick="redirect('position-editor.html')"> Position Editor </button>
+        <button class="nav-btn" onclick="redirect('/index.html')"> Play </button>
+        <button class="nav-btn" onclick="redirect('/position-editor.html')"> Position Editor </button>
         <button class="nav-btn" onclick="redirect('puzzle.html')" disabled="disabled" title="Coming soon! :)"> Puzzle </button>
     </div>
     <div class="main-box">
         <div class="chessboard-container">
             <table class="chessboard">
                 <tr>
-                    <td class="field" id="00"><span class="row-white">8</span><span class="col-black invisible">a</span></td>
+                    <td class="field" id="00">
+                        <span class="row-white">8</span><span class="col-black invisible">a</span>
+                    </td>
                     <td class="field" id="01"><span class="col-black invisible">b</span></td>
                     <td class="field" id="02"><span class="col-black invisible">c</span></td>
                     <td class="field" id="03"><span class="col-black invisible">d</span></td>
                     <td class="field" id="04"><span class="col-black invisible">e</span></td>
                     <td class="field" id="05"><span class="col-black invisible">f</span></td>
                     <td class="field" id="06"><span class="col-black invisible">g</span></td>
-                    <td class="field" id="07"><span class="col-black invisible">h</span><span class="row-black invisible">8</span></td>
+                    <td class="field" id="07">
+                        <span class="col-black invisible">h</span><span class="row-black invisible">8</span>
+                    </td>
                 </tr>
                 <tr>
                     <td class="field" id="10"><span class="row-white">7</span></td>
@@ -88,54 +92,71 @@
                     <td class="field" id="67"><span class="row-black invisible">2</span></td>
                 </tr>
                 <tr>
-                    <td class="field" id="70"><span class="row-white">1</span><span class="col-white">a</span></td>
+                    <td class="field" id="70">
+                        <span class="row-white">1</span><span class="col-white">a</span>
+                    </td>
                     <td class="field" id="71"><span class="col-white">b</span></td>
                     <td class="field" id="72"><span class="col-white">c</span></td>
                     <td class="field" id="73"><span class="col-white">d</span></td>
                     <td class="field" id="74"><span class="col-white">e</span></td>
                     <td class="field" id="75"><span class="col-white">f</span></td>
                     <td class="field" id="76"><span class="col-white">g</span></td>
-                    <td class="field" id="77"><span class="col-white">h</span><span class="row-black invisible">1</span></td>
+                    <td class="field" id="77">
+                        <span class="col-white">h</span>
+                        <span class="row-black invisible">1</span>
+                    </td>
                 </tr>
             </table>
+            <dialog class="modal" id="modal">
+                <h3 class="game-result-info"></h3>
+                <button class="close-btn">got it</button>
+            </dialog>
+            <dialog class="modal" id="invalid-position-modal">
+                <h3> Invalid position </h3>
+                <button class="close-btn" id="invalid-position-close-btn">got it</button>
+            </dialog>
+        </div>
+        <div class="moves-notation-board">
+            <div class="moves-counter board-col">
+                    
+            </div>
+            <div class="white-moves board-col">
+            
+            </div>
+            <div class="black-moves board-col">
+            
+            </div>
         </div>
         <div class="options-container">
             <button class="flip-board-btn" onclick = "flipBoard()" title="Flip board"><img src="./images/reverse-icon.png"></button>
-            
-            <p class="color-on-move"> Current move:
-                <select id="color-on-move-select">
+            <p> Promote to:
+                <select id="promotion-select">
+                    <option value="queen">Queen</option>
+                    <option value="rook">Rook</option>
+                    <option value="bishop">Bishop</option>
+                    <option value="knight">Knight</option>
+                </select>
+            </p>
+            <p class="hide-during-game"> Play as:
+                <select id="color-select">
                     <option value="white">White</option>
                     <option value="black">Black</option>
                 </select>
             </p>
-            <p> Drag pieces to set position </p>
-            <div class="piece-container">
-                <img src="./images/wp.png" alt="white pawn" class="piece-to-drag" id="wp">
-                <img src="./images/wn.png" alt="white knight" class="piece-to-drag" id="wn">
-                <img src="./images/wb.png" alt="white bishop" class="piece-to-drag" id="wb">
-                <img src="./images/wr.png" alt="white rook" class="piece-to-drag" id="wr">
-                <img src="./images/wq.png" alt="white queen" class="piece-to-drag" id="wq">
-                <img src="./images/wk.png" alt="white king" class="piece-to-drag" id="wk">
-            </div>
-            <div class="piece-container">
-                <img src="./images/bp.png" alt="black pawn" class="piece-to-drag" id="bp">
-                <img src="./images/bn.png" alt="black knight" class="piece-to-drag" id="bn">
-                <img src="./images/bb.png" alt="black bishop" class="piece-to-drag" id="bb">
-                <img src="./images/br.png" alt="black rook" class="piece-to-drag" id="br">
-                <img src="./images/bq.png" alt="black queen" class="piece-to-drag" id="bq">
-                <img src="./images/bk.png" alt="black king" class="piece-to-drag" id="bk">
-            </div>
-            <button class="hide-during-game" onclick = "clearPosition()" title = "Reset"> Clear board </button>
-            <button class="hide-during-game" onclick = "startGameFromPosition()" title = "Start game"> Start from position </button>
+            <p class="hide-during-game"> Play with:
+                <select id="opponent-select">
+                    <option value="computer">Computer</option>
+                    <option value="self">Self</option>
+                </select>
+            </p>
+            <button class="start-game-btn hide-during-game" onclick = "newGame()" title = "Start game">Start</button>
+            <button class="resign-btn hidden" onclick = "handleSurrender()" title = "Resign game" disabled="disabled">Resign</button>
         </div>
-        <dialog class="modal" id="editor-modal">
-            <h3>Position needs to contain both color kings</h3>
-            <button class="close-btn-editor close-btn">got it</button>
-        </dialog>
     </div>
     </div>
     <script src="chess.js"></script>
+    <script src="board-events.js"></script>
     <script src="site-functionality.js"></script>
-    <script src="position-editor.js"></script>
+    <script src="chess-engine.js"></script>
 </body>
 </html>

@@ -78,12 +78,14 @@ const newGame = () => {
     if(currentColor === 'white'){
         if(whiteKing.isFieldAttacked(whiteKing.coordinates[0], whiteKing.coordinates[1])){
             whiteKing.isAttacked = true;
+            showAttackedKing(whiteKing);
             isItCheckmate(whiteKing);
         }
     }
     else{
         if(blackKing.isFieldAttacked(blackKing.coordinates[0], blackKing.coordinates[1])){
             blackKing.isAttacked = true;
+            showAttackedKing(blackKing);
             isItCheckmate(blackKing);
         }
     }

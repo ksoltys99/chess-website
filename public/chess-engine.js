@@ -8,7 +8,7 @@ function chessEngine(color, fen){
     function computerMove(move){
         move = handleCastle(move);
         let computerPieces = chessPieces.filter(element => element.color === computerColor); 
-        let chosenMove = move !== '' ? formatMoveFromFetch(move) : chooseMove(computerPieces);
+        let chosenMove = move !== '' ? formatMoveFromEngine(move) : chooseMove(computerPieces);
         const piece = chosenMove[0];
         const field = [chosenMove[1][0], chosenMove[1][1]];
 
@@ -61,8 +61,7 @@ function chessEngine(color, fen){
         }
     }
 
-    //data from lichess
-    function formatMoveFromFetch(givenMove){
+    function formatMoveFromEngine(givenMove){
         const moveFrom = givenMove.substring(0, 2);
         const moveTo = givenMove.substring(2, 4);
         function findFieldByName(name){
