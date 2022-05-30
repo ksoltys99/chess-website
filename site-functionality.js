@@ -129,7 +129,7 @@ const setNewBoard = () => {
     if(customPosition){
         movesCounter = 2;
         fullMovesCounter = 1;
-        turnCounter = 1;
+        turnCounter = 0;
         let customMove = {
             "pieceId" : 'bk1',
             "pieceType" : 'king',
@@ -142,6 +142,7 @@ const setNewBoard = () => {
             whiteTurn = false;
             currentColor = 'black';
             movesCounter = 3;
+            turnCounter = 1;
             previousMovesStore.push(customMove);
         }
     }
