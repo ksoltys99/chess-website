@@ -97,7 +97,7 @@ const newGame = () => {
         if(playerColor === 'black') chessEngine('white', convertToFenNotation(chessboard, 'white'));
         else if(playerColor ==='white') chessEngine('black', convertToFenNotation(chessboard, 'black'));
     }
-    
+
     if(localStorage.getItem('first-move-custom') === 'black'){
         turnCounterFiller();
         const div = document.createElement("div");
@@ -174,11 +174,15 @@ const setNewBoard = () => {
 const showOptions = () => {
     const hiddenElements = document.querySelectorAll('.hide-during-game');
     hiddenElements.forEach(element => {
-        element.classList.remove('hidden');
+        element.classList.add('animation-show');
+        element.classList.remove('animation-hide');
     });
+
     const resignButton = document.querySelector('.resign-btn');
-    resignButton.classList.add('hidden');
+    resignButton.classList.add('animation-hide');
+    resignButton.classList.remove('animation-show');
     resignButton.setAttribute('disabled', 'disabled');
+
     const newGameButton = document.querySelector('.start-game-btn');
     newGameButton.removeAttribute('disabled');
 }
@@ -186,11 +190,16 @@ const showOptions = () => {
 const hideOptions = () => {
     const resignButton = document.querySelector('.resign-btn');
     resignButton.removeAttribute('disabled');
+    resignButton.classList.remove('invisible');
+    resignButton.classList.remove('animation-hide');
+    resignButton.classList.add('animation-show');
+
     const elementsToHide = document.querySelectorAll('.hide-during-game');
     elementsToHide.forEach(element => {
-        element.classList.add('hidden');
+        element.classList.remove('animation-show');
+        element.classList.add('animation-hide');
     })
-    document.querySelector('.resign-btn').classList.remove('hidden');
+
     const newGameButton = document.querySelector('.start-game-btn');
     newGameButton.setAttribute('disabled', 'disabled');
 }
