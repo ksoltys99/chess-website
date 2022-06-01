@@ -1,13 +1,13 @@
 let previousMoveFieldsIds = [];
 let lastEnlightenField = '';
 let collisionFlag = false;
-
 const pieces = document.querySelectorAll(".piece");
+const fields = document.querySelectorAll(".field");
+
 pieces.forEach((element)=>{
     element.setAttribute("draggable", "true");
 });
 
-const fields = document.querySelectorAll(".field");
 fields.forEach((element)=>{
     element.setAttribute("ondrop", "drop_handler(event)");
     element.setAttribute("ondragover", "dragover_handler(event)");
