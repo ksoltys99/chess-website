@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KS Position Editor</title>
+    <title>Position Editor</title>
+    <link rel="icon" type="image/x-icon" href="/images/king.ico">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div id="bg">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="redirect('/index.html')"> Play </button>
-        <button class="nav-btn" onclick="redirect('/position-editor.html')"> Position Editor </button>
+        <button class="nav-btn" onclick="redirect('index.html')"> Play </button>
+        <button class="nav-btn" onclick="redirect('position-editor.html')"> Position Editor </button>
         <button class="nav-btn" onclick="redirect('puzzle.html')" disabled="disabled" title="Coming soon! :)"> Puzzle </button>
     </div>
     <div class="main-box">
-        <div class="chessboard-container">
+        <div class="chessboard-container" oncontextmenu="return false;">
             <table class="chessboard">
                 <tr>
                     <td class="field" id="00"><span class="row-white">8</span><span class="col-black invisible">a</span></td>
@@ -100,8 +101,6 @@
             </table>
         </div>
         <div class="options-container">
-            <button class="flip-board-btn" onclick = "flipBoard()" title="Flip board"><img src="./images/reverse-icon.png"></button>
-            
             <p class="color-on-move"> Current move:
                 <select id="color-on-move-select">
                     <option value="white">White</option>

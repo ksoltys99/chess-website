@@ -8,7 +8,7 @@ function chessEngine(color, fen){
     function computerMove(move){
         move = handleCastle(move);
         let computerPieces = chessPieces.filter(element => element.color === computerColor); 
-        let chosenMove = move !== '' ? formatMoveFromEngine(move) : chooseMove(computerPieces);
+        let chosenMove = move !== '' ? formatMoveFromEngine(move) : getRandomMove(computerPieces);
         const piece = chosenMove[0];
         const field = [chosenMove[1][0], chosenMove[1][1]];
 
@@ -94,7 +94,7 @@ function chessEngine(color, fen){
         return m;
     }
 
-    function chooseMove(pieces){
+    function getRandomMove(pieces){
         let chosenPiece, chosenMove;
 
         pieces = pieces.filter(element => element.availableMoves.length > 0);

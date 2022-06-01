@@ -12,6 +12,8 @@ function copyAndDrop(ev){
     ev.preventDefault();
 
     clearEnlightenFields();
+
+    if(!ev.target.outerHTML.startsWith('<td')) return;
     
     const data = ev.dataTransfer.getData('text/html');
     const nodeCopy = document.getElementById(data).cloneNode(true);

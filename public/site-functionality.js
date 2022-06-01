@@ -95,15 +95,16 @@ const newGame = () => {
 
     if(playWith === 'computer'){
         if(playerColor === 'black') chessEngine('white', convertToFenNotation(chessboard, 'white'));
-        else if(playerColor ==='white' && localStorage.getItem('first-move-custom') === 'black'){
-            turnCounterFiller();
-            const div = document.createElement("div");
-            const whiteMove = document.querySelector(".white-moves");
-            div.classList.add('notation-item');
-            div.innerText = '-';
-            whiteMove.append(div);
-            chessEngine('black', convertToFenNotation(chessboard, 'black'));
-        };
+        else if(playerColor ==='white') chessEngine('black', convertToFenNotation(chessboard, 'black'));
+    }
+    
+    if(localStorage.getItem('first-move-custom') === 'black'){
+        turnCounterFiller();
+        const div = document.createElement("div");
+        const whiteMove = document.querySelector(".white-moves");
+        div.classList.add('notation-item');
+        div.innerText = '-';
+        whiteMove.append(div);
     }
 }
 
