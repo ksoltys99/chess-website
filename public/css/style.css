@@ -311,14 +311,15 @@ td{
     border-radius: 3px;
 }
 
-.start-game-btn, .resign-btn{
+.start-game-btn, .resign-btn, .editor-btn{
     width: 100%;
     height: 5vh;
     border-radius: 5px;
     background-color: rgba(29, 65, 35, 0.651);
     font-size: 1.25rem;
+    margin-bottom: 1vh;
 }
 
-.start-game-btn:hover, .resign-btn:hover{
+.start-game-btn:hover, .resign-btn:hover, .editor-btn:hover{
     background-color: rgba(73, 170, 90, 0.651);
 }
