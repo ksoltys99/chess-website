@@ -1,6 +1,8 @@
 let previousMoveFieldsIds = [];
 let lastEnlightenField = '';
 let collisionFlag = false;
+let isFirstFieldClicked = false;
+let clickedPieceId = '';
 const pieces = document.querySelectorAll(".piece");
 const fields = document.querySelectorAll(".field");
 
@@ -12,10 +14,10 @@ fields.forEach((element)=>{
     element.setAttribute("ondrop", "drop_handler(event)");
     element.setAttribute("ondragover", "dragover_handler(event)");
     element.setAttribute("ondragenter", "dragenter_handler(event)");
+    element.setAttribute("onclick", "click_handler(event)");
 });
 
 function dragstart_handler(ev){
-    
     if(!gameStarted) return;
     if(playWith==='computer'){
         const piece = chessPieces.find(element => element.id === ev.target.id);
@@ -26,13 +28,6 @@ function dragstart_handler(ev){
     clearAvailableMoves(previousMoveFieldsIds);
     showAvailableMoves(ev.target.id);
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-    const elements = document.querySelectorAll(".piece");
-        elements.forEach((element)=>{
-        element.addEventListener("dragstart", dragstart_handler);
-        });
-});
 
 function dragover_handler(ev){
     ev.preventDefault();
@@ -165,4 +160,97 @@ function clearAvailableMoves(array){
         document.getElementById(element).classList.remove("available-moves-filled");
         document.getElementById(element).classList.remove("available-moves");
     });
+}
+
+function click_handler(ev){
+    if(!gameStarted) return;
+
+    if(!isFirstFieldClicked && ev.target.outerHTML.startsWith('<td')) return;
+
+    if(ev.target.id === clickedPieceId) return;
+
+    if(isFirstFieldClicked){
+        isFirstFieldClicked = false;
+        clearAvailableMoves(previousMoveFieldsIds);
+        clearEnlightenFields();
+
+        const selectedPiece = document.getElementById('promotion-select');
+        const selectedValue = selectedPiece.options[selectedPiece.selectedIndex].value;
+
+        const data = clickedPieceId;
+
+        let x, y, currentPiece;
+
+        chessPieces.forEach((element)=>{
+            if(element.id === data){
+                let targetCoords = ev.currentTarget.id.split("");
+                if(isNaN(targetCoords[0])) targetCoords = ev.target.parentNode.id.split("");
+                x = parseInt(targetCoords[0]);
+                y = parseInt(targetCoords[1]);
+                currentPiece = element;
+            }
+        }); 
+        
+    
+        if((chessboard[x][y] !== '0') && currentPiece.color===chessboard[x][y].color) return;
+        
+        if(willKingBeAttacked(currentPiece, x, y)) return;
+        
+        if(ev.target.outerHTML.startsWith("<span")) return;
+    
+        if(!ev.currentTarget.outerHTML.includes('img')){      
+            if(currentPiece.isLegalMove(x, y) && currentPiece.setTurn()){           
+                //en passant
+                if(currentPiece.type.includes("pawn") && currentPiece.coordinates[1]!==y && y===previousMovesStore[movesCounter-1].moveTo[1]){
+                    if(currentPiece.color==="white"){
+                        fieldAfterThePawnId = [x+1, y].join("").toString();
+                        document.getElementById(chessboard[x+1][y].id).remove();
+                        removePieceFromArray(chessboard[x+1][y].id);
+                        chessboard[x+1][y]="0";
+                    }
+                    else{
+                        fieldAfterThePawnId = [x-1, y].join("").toString();
+                        document.getElementById(chessboard[x-1][y].id).remove();
+                        removePieceFromArray(chessboard[x-1][y].id);
+                        chessboard[x-1][y]="0";
+                    }
+                    collisionFlag = true;
+                }
+                ev.target.appendChild(document.getElementById(data));
+                currentPiece.move(x, y, selectedValue);
+            }
+        }
+        else if(ev.currentTarget.outerHTML.includes('img')){
+            if(ev.target.outerHTML.includes("td")) return;
+            if(currentPiece.isLegalMove(x, y) && currentPiece.setTurn()){
+                removePieceFromArray(chessboard[x][y].id);
+                collisionFlag = true;
+                ev.target.replaceWith(document.getElementById(data));
+                currentPiece.move(x, y, selectedValue);
+            }
+        }
+    
+        if(currentPiece.type==='pawn'){
+            if((currentPiece.coordinates[0]===0) || (currentPiece.coordinates[0]===7)){
+                const pieceImage = switchImageAfterPromotion(currentPiece, selectedValue);
+                document.getElementById(currentPiece.id).remove();
+                const field = document.getElementById(currentPiece.coordinates.join("").toString());
+                field.append(pieceImage);
+                pieceImage.addEventListener("dragstart", dragstart_handler);
+            }
+        }
+        clickedPieceId = '';
+    }
+    else{
+        if(playWith==='computer'){
+            const piece = chessPieces.find(element => element.id === ev.target.id);
+            if(piece.color !== playerColor) return;
+        }
+
+        clickedPieceId = ev.target.id;
+        isFirstFieldClicked = true;
+        chessPieces.forEach(element => element.setNextAvailableMove());
+        clearAvailableMoves(previousMoveFieldsIds);
+        showAvailableMoves(ev.target.id);
+    }
 }
