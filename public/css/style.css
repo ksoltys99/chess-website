@@ -262,46 +262,72 @@ td{
 }
 
 @media screen and (max-width: 700px) {
-    body{
+    html, body{
         overflow-y: scroll;
     }
+
+    body{
+        position:absolute;
+    }
+
     .main-box{
         flex-direction: column;
     }
+
     .chessboard-container{
         width: 80vw;
         height: 80vw;
-        margin-bottom: 0;
     }
+
     .moves-notation-board{
         position: relative;
         width: 80vw;
         height: 20vw;
-        top: 5vw;
+        top: 5px;
     }
+
     td{
         width: 10vw;
         height: 10vw;
         font-size: 1.5vh;
     }
+
     .piece{
         width: 9vw;
         height: 9vw;
     }
+
     .options-container{
         width: 80vw;
         display: flex;
-        flex-direction: column;
-        top: 5vw;
+        flex-direction: auto;
+        top: 3vw;
         justify-items: center;
         align-items: center;
     }
-    .start-game-btn{
-        width: 30vw;
-    }
+
     .piece-to-drag{
         width: 7vw;
         height: 7vw;
+    }
+
+    .option-item{
+        margin: 1em;
+        padding: 0;
+    }
+
+    .select-container p{
+        font-size: 2.75vw;
+    }
+
+    .button-container{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .start-game-btn, .resign-btn{
+        width: 100%;
     }
 }
 
