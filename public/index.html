@@ -129,28 +129,32 @@
             </div>
         </div>
         <div class="options-container">
-            <p> Promote to:
-                <select id="promotion-select">
-                    <option value="queen">Queen</option>
-                    <option value="rook">Rook</option>
-                    <option value="bishop">Bishop</option>
-                    <option value="knight">Knight</option>
-                </select>
-            </p>
-            <p class="hide-during-game"> Play as:
-                <select id="color-select">
-                    <option value="white">White</option>
-                    <option value="black">Black</option>
-                </select>
-            </p>
-            <p class="hide-during-game"> Play with:
-                <select id="opponent-select">
-                    <option value="computer">Computer</option>
-                    <option value="self">Self</option>
-                </select>
-            </p>
-            <button class="start-game-btn hide-during-game" onclick = "newGame()" title = "Start game">Start</button>
-            <button class="resign-btn invisible" onclick = "handleSurrender()" title = "Resign game" disabled="disabled">Resign</button>
+            <div class="select-container">
+                <p class="option-item"> Promote to:
+                    <select id="promotion-select">
+                        <option value="queen">Queen</option>
+                        <option value="rook">Rook</option>
+                        <option value="bishop">Bishop</option>
+                        <option value="knight">Knight</option>
+                    </select>
+                </p>
+                <p class="hide-during-game option-item"> Play as:
+                    <select id="color-select">
+                        <option value="white">White</option>
+                        <option value="black">Black</option>
+                    </select>
+                </p>
+                <p class="hide-during-game option-item"> Play with:
+                    <select id="opponent-select">
+                        <option value="computer">Computer</option>
+                        <option value="self">Self</option>
+                    </select>
+                </p>
+            </div>
+            <div class="button-container">
+                <button class="start-game-btn hide-during-game" onclick = "newGame()" title = "Start game">Start</button>
+                <button class="resign-btn invisible" onclick = "handleSurrender()" title = "Resign game" disabled="disabled">Resign</button>
+            </div>
         </div>
     </div>
     </div>
