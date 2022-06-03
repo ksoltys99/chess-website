@@ -305,7 +305,11 @@ td{
         justify-items: center;
         align-items: center;
     }
-
+    
+    .options-editor{
+        flex-direction: column;
+    }
+    
     .piece-to-drag{
         width: 7vw;
         height: 7vw;
