@@ -305,11 +305,10 @@ td{
         justify-items: center;
         align-items: center;
     }
-    
     .options-editor{
         flex-direction: column;
     }
-    
+
     .piece-to-drag{
         width: 7vw;
         height: 7vw;
@@ -352,4 +351,13 @@ td{
 
 .start-game-btn:hover, .resign-btn:hover, .editor-btn:hover{
     background-color: rgba(73, 170, 90, 0.651);
+}
+
+.easter-egg{
+    z-index: 2;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-top: -157.5px;
+    margin-left: -280px;
 }
