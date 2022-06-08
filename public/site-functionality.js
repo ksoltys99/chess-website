@@ -53,6 +53,13 @@ const newGame = () => {
     resetGlobalVariables();
     setNewBoard();
 
+    if(localStorage.getItem('is-custom-position') === 'true'){
+        if(isKingNextToKing()){
+            easterEgg();
+            return false;
+        }
+    }
+
     if(!isPositionValid()){
         localStorage.clear();
         return handleInvalidPosition();
@@ -168,6 +175,7 @@ const setNewBoard = () => {
     prepareBoardToGame();
     document.querySelectorAll('.piece').forEach(element => {
         element.addEventListener("dragstart", dragstart_handler);
+        element.addEventListener("click", click_handler);
     })
 }
 
@@ -231,6 +239,7 @@ const resetGlobalVariables = () => {
 }
 
 const isPositionValid = () => {
+    
     if(whiteTurn){
         if(blackKing.isFieldAttacked(blackKing.coordinates[0], blackKing.coordinates[1])) return false;
     }
@@ -248,6 +257,28 @@ const handleInvalidPosition = () => {
         modal.close();
         redirect("position-editor.html");
     })
+}
+
+const isKingNextToKing = () => {
+    let condition = false;
+
+    whiteKing.availableMoves.forEach(element => {
+        if(chessboard[element[0]][element[1]].hasOwnProperty('type') && chessboard[element[0]][element[1]].type === 'king'){
+            condition = true;
+        }
+    })
+    if(condition) return true;
+}
+
+const easterEgg = () => {
+    const chessboard = document.querySelector('.chessboard-container');
+    const startBtn = document.querySelector('.start-game-btn');
+    chessboard.innerHTML += `<iframe class="easter-egg" width="560" height="315" src="https://www.youtube.com/embed/bTS9XaoQ6mg?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    startBtn.disabled = 'disabled'; 
+    setTimeout(() => {
+        localStorage.clear();
+        redirect('position-editor.html');
+    }, 30000);
 }
 
 const didPawnMove = (piece) => {
